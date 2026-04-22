@@ -1,0 +1,367 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pcb:#0a2a1a;
+  --trace:#1a5c35;
+  --trace2:#0d3d24;
+  --led-green:#00ff88;
+  --led-dim:#004422;
+  --accent:#00e676;
+  --accent2:#69f0ae;
+  --chip:#1b1b2f;
+  --text-light:#e0ffe8;
+  --text-muted:#7ab890;
+  --card-bg:rgba(10,42,26,0.85);
+  --border:#1a5c35;
+  --pad:#c8a200;
+}
+body{font-family:var(--font-mono,monospace);background:var(--pcb);color:var(--text-light)}
+
+.pcb-bg{
+  background:var(--pcb);
+  background-image:
+    linear-gradient(rgba(0,255,136,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,136,0.04) 1px,transparent 1px);
+  background-size:32px 32px;
+  min-height:100vh;
+  padding:0 0 3rem;
+}
+
+.hero{
+  text-align:center;
+  padding:3rem 1rem 2rem;
+  position:relative;
+}
+.hero-chip{
+  display:inline-block;
+  background:var(--chip);
+  border:2px solid var(--trace);
+  border-radius:4px;
+  padding:1.5rem 2.5rem;
+  position:relative;
+  margin-bottom:1.5rem;
+}
+.chip-pins{
+  position:absolute;
+  left:-12px;top:20px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.chip-pins-r{
+  position:absolute;
+  right:-12px;top:20px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.pin{width:12px;height:4px;background:var(--pad);border-radius:1px}
+.hero-name{font-size:2rem;font-weight:500;color:var(--accent);letter-spacing:2px;font-family:var(--font-mono,monospace)}
+.hero-title{font-size:0.85rem;color:var(--text-muted);letter-spacing:3px;margin-top:0.4rem}
+.led-row{display:flex;justify-content:center;gap:16px;margin-top:1rem}
+.led{width:10px;height:10px;border-radius:50%;background:var(--led-dim);animation:blink 2s infinite}
+.led.g{background:var(--led-green);animation-delay:0s}
+.led.y{background:#ffcc00;animation:blink 2s 0.4s infinite}
+.led.r{background:#ff4444;animation:blink 2s 0.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.contact-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+  padding:0.75rem 1rem;
+  border-top:1px solid var(--trace2);
+  border-bottom:1px solid var(--trace2);
+  background:rgba(0,0,0,0.2);
+  font-size:12px;color:var(--text-muted);
+}
+.contact-item{display:flex;align-items:center;gap:6px}
+.contact-item a{color:var(--accent2);text-decoration:none}
+
+.section{padding:2rem 1.5rem 0}
+.sec-label{
+  font-size:11px;letter-spacing:3px;color:var(--text-muted);
+  display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;text-transform:uppercase;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--trace)}
+.sec-label-tag{background:var(--trace2);border:1px solid var(--trace);border-radius:3px;padding:2px 10px}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.skill-card{
+  background:var(--chip);border:1px solid var(--trace);border-radius:6px;
+  padding:1rem;position:relative;overflow:hidden;
+}
+.skill-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--accent);opacity:0.6;
+}
+.skill-title{font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:0.75rem;text-transform:uppercase}
+.skill-items{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:11px;background:rgba(0,230,118,0.1);
+  border:1px solid rgba(0,230,118,0.3);
+  color:var(--accent2);padding:2px 8px;border-radius:3px;
+}
+.tag.protocol{border-color:rgba(255,204,0,0.4);background:rgba(255,204,0,0.08);color:#ffdd66}
+.tag.hw{border-color:rgba(255,120,0,0.4);background:rgba(255,120,0,0.08);color:#ffaa44}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.proj-card{
+  background:var(--chip);border:1px solid var(--trace);border-radius:8px;
+  padding:1.25rem;position:relative;
+}
+.proj-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--trace),var(--accent),var(--trace));
+  border-radius:0 0 8px 8px;opacity:0.5;
+}
+.proj-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:0.75rem}
+.proj-icon{
+  width:36px;height:36px;border-radius:4px;
+  background:rgba(0,230,118,0.12);border:1px solid rgba(0,230,118,0.3);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.proj-icon svg{width:18px;height:18px;fill:var(--accent)}
+.proj-name{font-size:0.9rem;font-weight:500;color:var(--text-light);line-height:1.3}
+.proj-period{font-size:11px;color:var(--text-muted);margin-top:2px}
+.proj-desc{font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:0.75rem}
+.proj-stack{display:flex;flex-wrap:wrap;gap:5px}
+
+.exp-item{
+  border-left:2px solid var(--trace);padding-left:1.25rem;margin-bottom:1.5rem;position:relative;
+}
+.exp-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--chip);
+  position:absolute;left:-6px;top:3px;
+  box-shadow:0 0 6px var(--accent);
+}
+.exp-role{font-size:0.95rem;font-weight:500;color:var(--text-light)}
+.exp-co{font-size:12px;color:var(--accent2);margin:2px 0}
+.exp-date{font-size:11px;color:var(--text-muted)}
+.exp-bullets{margin-top:0.75rem;list-style:none;display:flex;flex-direction:column;gap:5px}
+.exp-bullets li{font-size:12px;color:var(--text-muted);display:flex;gap:8px;line-height:1.6}
+.exp-bullets li::before{content:'>';color:var(--accent);flex-shrink:0}
+
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.edu-card{
+  background:var(--chip);border:1px solid var(--trace2);border-radius:6px;padding:1rem;
+}
+.edu-deg{font-size:0.85rem;font-weight:500;color:var(--text-light);margin-bottom:4px}
+.edu-school{font-size:11px;color:var(--accent2)}
+.edu-year{font-size:11px;color:var(--text-muted);margin-top:4px}
+
+.awards{display:flex;flex-wrap:wrap;gap:12px}
+.award-card{
+  background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);
+  border-radius:6px;padding:0.75rem 1rem;display:flex;align-items:center;gap:10px;
+}
+.award-badge{font-size:20px}
+.award-title{font-size:12px;font-weight:500;color:#ffdd66}
+.award-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
+
+.schematic-deco{
+  display:flex;justify-content:center;gap:32px;
+  padding:2rem 0 1rem;opacity:0.4;
+}
+.resistor{display:flex;align-items:center;gap:0}
+.r-line{width:20px;height:2px;background:var(--trace)}
+.r-body{width:30px;height:10px;border:2px solid var(--accent);border-radius:2px}
+.capacitor{display:flex;align-items:center;gap:3px}
+.cap-line{width:20px;height:2px;background:var(--trace)}
+.cap-plate{width:3px;height:16px;background:var(--accent)}
+.ic-deco{
+  width:50px;height:30px;background:var(--chip);
+  border:1.5px solid var(--accent);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:var(--accent);letter-spacing:1px;
+}
+
+.footer{
+  text-align:center;padding:2rem;
+  font-size:11px;color:var(--text-muted);
+  border-top:1px solid var(--trace2);margin-top:2rem;
+}
+</style>
+
+<div class="pcb-bg">
+
+<div class="hero">
+  <div class="hero-chip">
+    <div class="chip-pins">
+      <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+    </div>
+    <div class="chip-pins-r">
+      <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+    </div>
+    <div class="hero-name">JOSHUA SAMRAJ J</div>
+    <div class="hero-title">Firmware · Embedded Systems · Hardware</div>
+    <div class="led-row">
+      <div class="led g"></div><div class="led y"></div><div class="led r"></div>
+      <div class="led g" style="animation-delay:0.3s"></div><div class="led y" style="animation-delay:0.6s"></div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-bar">
+  <div class="contact-item">&#9742; <a href="tel:+917305955939">+91 7305955939</a></div>
+  <div class="contact-item">&#9993; <a href="mailto:j.joshuasamraj@gmail.com">j.joshuasamraj@gmail.com</a></div>
+  <div class="contact-item">&#9670; <a href="https://www.linkedin.com/in/joshua-samraj-j-64a316263/">LinkedIn</a></div>
+  <div class="contact-item">&#9670; <a href="https://static-portfoliosix.vercel.app/">Portfolio Site</a></div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><span class="sec-label-tag">// skills</span></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-title">Firmware</div>
+      <div class="skill-items">
+        <span class="tag">Embedded C</span><span class="tag">Python</span><span class="tag">RTOS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-title">Microcontrollers</div>
+      <div class="skill-items">
+        <span class="tag">Arduino UNO</span><span class="tag">NANO</span><span class="tag">MEGA</span><span class="tag">ESP32</span><span class="tag">Raspberry Pi</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-title">Protocols</div>
+      <div class="skill-items">
+        <span class="tag protocol">UART</span><span class="tag protocol">SPI</span><span class="tag protocol">I2C</span><span class="tag protocol">Serial</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-title">Hardware</div>
+      <div class="skill-items">
+        <span class="tag hw">PCB Design</span><span class="tag hw">EasyEDA</span><span class="tag hw">Schematics</span><span class="tag hw">Analog/Digital</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-title">Tools</div>
+      <div class="skill-items">
+        <span class="tag">Arduino IDE</span><span class="tag">VS Code</span><span class="tag">Git</span><span class="tag">GitHub</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-title">AI / Vision</div>
+      <div class="skill-items">
+        <span class="tag">OpenCV</span><span class="tag">pySerial</span><span class="tag">Object Detection</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><span class="sec-label-tag">// projects</span></div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-header">
+        <div class="proj-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <div>
+          <div class="proj-name">AI-Powered Face-Tracking &amp; Human-Following Robot</div>
+          <div class="proj-period">Jul 2024 – Feb 2025</div>
+        </div>
+      </div>
+      <div class="proj-desc">
+        Autonomous robot using real-time face detection and person-following via Python + OpenCV + Arduino motor control. Integrated UART serial link between Raspberry Pi &amp; Arduino. Added voice interaction with Speech Recognition &amp; TTS for human-robot Q&amp;A.
+      </div>
+      <div class="proj-stack">
+        <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag protocol">UART</span>
+        <span class="tag">Raspberry Pi</span><span class="tag">Arduino</span><span class="tag hw">L298N Motor Driver</span>
+        <span class="tag">pySerial</span><span class="tag">TTS</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-header">
+        <div class="proj-icon">
+          <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        </div>
+        <div>
+          <div class="proj-name">Embedded Robotics Firmware Modules</div>
+          <div class="proj-period">Entudio Internship · May–Jun 2025</div>
+        </div>
+      </div>
+      <div class="proj-desc">
+        Developed real-time control and sensor integration firmware for robotics platforms. Interfaced sensors and actuators via communication protocols on Arduino, ESP32, and Raspberry Pi. Optimized code for low-power and high-reliability operation.
+      </div>
+      <div class="proj-stack">
+        <span class="tag">Embedded C</span><span class="tag protocol">I2C</span><span class="tag protocol">SPI</span>
+        <span class="tag protocol">UART</span><span class="tag">ESP32</span><span class="tag">Sensor Fusion</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><span class="sec-label-tag">// experience</span></div>
+  <div class="exp-item">
+    <div class="exp-dot"></div>
+    <div class="exp-role">Embedded Systems Intern</div>
+    <div class="exp-co">Entudio Private Limited</div>
+    <div class="exp-date">May 2025 – June 2025</div>
+    <ul class="exp-bullets">
+      <li>Developed &amp; tested embedded firmware modules for robotics — real-time control &amp; sensor integration</li>
+      <li>Interfaced microcontrollers (Arduino, ESP32, RPi) with sensors, actuators via UART / SPI / I2C</li>
+      <li>Implemented AI object detection models integrated with robotic hardware</li>
+      <li>Optimized firmware for performance, reliability, and low-power operation</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><span class="sec-label-tag">// education</span></div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-deg">B.E. — Electronics &amp; Communication (ECE)</div>
+      <div class="edu-school">Francis Xavier Engineering College</div>
+      <div class="edu-year">2023 – 2026 (Pursuing)</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-deg">Diploma — Electrical &amp; Electronics (EEE)</div>
+      <div class="edu-school">Government Polytechnic College</div>
+      <div class="edu-year">2020 – 2023</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-deg">SSLC (10th Grade)</div>
+      <div class="edu-school">T.D.T.A Jeyaraj Annapackiam Mat. Sec. School</div>
+      <div class="edu-year">2019 – 2020</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label"><span class="sec-label-tag">// achievements</span></div>
+  <div class="awards">
+    <div class="award-card">
+      <div class="award-badge">&#127942;</div>
+      <div>
+        <div class="award-title">2nd Prize — National Level Hackathon</div>
+        <div class="award-sub">Kalasalingam Academy of Research &amp; Education</div>
+      </div>
+    </div>
+    <div class="award-card">
+      <div class="award-badge">&#127941;</div>
+      <div>
+        <div class="award-title">1st Prize — Paper Presentation</div>
+        <div class="award-sub">Kongu Engineering College</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="schematic-deco">
+  <div class="resistor"><div class="r-line"></div><div class="r-body"></div><div class="r-line"></div></div>
+  <div class="capacitor"><div class="cap-line"></div><div class="cap-plate"></div><div class="cap-plate"></div><div class="cap-line"></div></div>
+  <div class="ic-deco">MCU</div>
+  <div class="capacitor"><div class="cap-line"></div><div class="cap-plate"></div><div class="cap-plate"></div><div class="cap-line"></div></div>
+  <div class="resistor"><div class="r-line"></div><div class="r-body"></div><div class="r-line"></div></div>
+</div>
+
+<div class="footer">
+  Joshua Samraj J &nbsp;|&nbsp; Embedded &amp; Firmware Engineer Trainee &nbsp;|&nbsp; Tamil Nadu, India<br>
+  <span style="opacity:0.5;font-size:10px">// end of file</span>
+</div>
+
+</div>
